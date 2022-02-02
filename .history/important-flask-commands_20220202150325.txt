@@ -1,0 +1,29 @@
+#Instilation
+mkdir myproject
+cd myproject
+python3 -m venv venv
+. venv/bin/activate
+pip install Flask
+
+#Environment setup
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+flask run
+
+#default url
+http://127.0.0.1:5000/
+
+#init database
+flask init-db
+
+#install project in virtual env after packaging init
+pip install -e .
+
+#to see project installed
+pip list
+
+#testing
+pip install pytest coverage
+pytest
+coverage run -m pytest
+coverage html

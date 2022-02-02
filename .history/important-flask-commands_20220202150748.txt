@@ -1,0 +1,41 @@
+#Instilation
+mkdir myproject
+cd myproject
+python3 -m venv venv
+. venv/bin/activate
+pip install Flask
+
+#Environment setup
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+flask run
+
+#default url
+http://127.0.0.1:5000/
+
+#init database
+flask init-db
+
+#install project in virtual env after packaging init
+pip install -e .
+
+#to see project installed
+pip list
+
+#testing
+pip install pytest coverage
+pytest
+coverage run -m pytest
+coverage html
+
+# deploy
+pip install wheel
+python setup.py bdist_wheel
+
+You can find the file in dist/flaskr-1.0.0-py3-none-any.whl. 
+The file name is in the format of 
+{project name}-{version}-{python tag} -{abi tag}-{platform tag}.
+Copy this file to another machine, set up a new virtualenv, 
+then install the file with pip.
+
+$ pip install flaskr-1.0.0-py3-none-any.whl

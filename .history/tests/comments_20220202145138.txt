@@ -1,0 +1,61 @@
+#conftest
+
+""" 
+tempfile.mkstemp() creates and opens a temporary file, returning 
+the file descriptor and the path to it. The DATABASE path is 
+overridden so it points to this temporary path instead of the 
+instance folder. After setting the path, the database tables are 
+created and the test data is inserted. After the test is over, the 
+temporary file is closed and removed.
+
+TESTING tells Flask that the app is in test mode. Flask changes 
+some internal behavior so its easier to test, and other extensions 
+can also use the flag to make testing them easier.
+
+The client fixture calls app.test_client() with the application 
+object created by the app fixture. Tests will use the client to 
+make requests to the application without running the server.
+
+The runner fixture is similar to client. app.test_cli_runner() 
+creates a runner that can call the Click commands registered with 
+the application.
+
+Pytest uses fixtures by matching their function names with the 
+names of arguments in the test functions. For example, the 
+test_hello function youll write next takes a client argument. 
+Pytest matches that with the client fixture function, calls it, 
+and passes the returned value to the test function.
+
+For most of the views, a user needs to be logged in. The easiest 
+way to do this in tests is to make a POST request to the login 
+view with the client. Rather than writing that out every time, 
+you can write a class with methods to do that, and use a fixture to pass it the client for each test.
+
+With the auth fixture, you can call auth.login() in a test to log 
+in as the test user, which was inserted as part of the test data 
+in the app fixture.
+
+The register view should render successfully on GET. On POST with 
+valid form data, it should redirect to the login URL and the users 
+data should be in the database. Invalid data should display error 
+messages.
+
+"""
+
+#testdb
+
+
+""" 
+Within an application context, get_db should return the 
+same connection each time its called. After the context, 
+the connection should be closed.
+
+The init-db command should call the init_db function and 
+output a message.
+
+
+This test uses Pytests monkeypatch fixture to replace the 
+init_db function with one that records that its been called. 
+The runner fixture you wrote above is used to call the init-db 
+command by name.
+"""
